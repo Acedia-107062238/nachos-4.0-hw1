@@ -87,7 +87,7 @@ class FileSystem {
 	}
 	int CloseFile(){
 		Close(filePtr->getFile());
-		/*int retVal = close(filePtr->getFile());
+		/*int retVal = Close(filePtr->getFile());
     	ASSERT(retVal >= 0);
 		if(retVal<=0) return -1;*/
 		return 1;
