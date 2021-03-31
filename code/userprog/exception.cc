@@ -97,7 +97,9 @@ ExceptionHandler(ExceptionType which)
 			val = kernel->machine->ReadRegister(4);
 			{
 				char *filename = &(kernel->machine->mainMemory[val]);
-				status = kernel->fileSystem->Create(filename);	
+				//cout <<  "ccc-----++--" << filename <<endl;
+				status = kernel->fileSystem->Create(filename);
+				//cout <<  "s2s2-----++--" << status <<endl;
 				kernel->machine->WriteRegister(2, (int)status);
 			}
 			return;
@@ -119,9 +121,14 @@ ExceptionHandler(ExceptionType which)
 		case SC_Read:
 			val = kernel->machine->ReadRegister(4);
 			{
-				char *filename = &(kernel->machine->mainMemory[val]);
-				//status = kernel->fileSystem->ReadFile(filename);	
-				//kernel->machine->WriteRegister(2, (int)status);
+				char *rtext = &(kernel->machine->mainMemory[val]);
+				/*int i;
+				for(i=0;rtext[i]!='\0';i++){
+
+				}*/
+				cout <<  "-----++--" << val <<endl;
+				status = kernel->fileSystem->ReadFile(rtext,10);	
+				kernel->machine->WriteRegister(2, (int)status);
 			}
 			return;
 			ASSERTNOTREACHED();
@@ -130,18 +137,24 @@ ExceptionHandler(ExceptionType which)
 		case SC_Write:
 			val = kernel->machine->ReadRegister(4);
 			{
-				char *filename = &(kernel->machine->mainMemory[val]);
-				//status = kernel->fileSystem->WriteFile(filename);	
-				//kernel->machine->WriteRegister(2, (int)status);
+				char *wtext = &(kernel->machine->mainMemory[val]);
+				int i;
+				for(i=0;wtext[i]!='\0';i++){
+
+				}
+				//cout <<  "-----++--" << wtext << i <<endl;
+				status = kernel->fileSystem->WriteFile(wtext,i);
+				cout <<  "s-----++--" << status <<endl;
+				kernel->machine->WriteRegister(2, (int)status);
 			}
 			return;
 			ASSERTNOTREACHED();
 			break;
 		
 		case SC_Close:
-			val = kernel->machine->ReadRegister(4);
+			//val = kernel->machine->ReadRegister(4);
 			{
-				char *filename = &(kernel->machine->mainMemory[val]);
+				//char *filename = &(kernel->machine->mainMemory[val]);
 				status = kernel->fileSystem->CloseFile();	
 				kernel->machine->WriteRegister(2, (int)status);
 			}
